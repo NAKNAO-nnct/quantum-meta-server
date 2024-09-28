@@ -9,7 +9,7 @@ import config
 app = Flask(__name__)
 
 ytdlp = ytdlp_service.YtdlpService()
-cache = Cache()
+cache = Cache('appserver:')
 
 @app.route('/health')
 def index():
@@ -56,6 +56,10 @@ def get_youtube_info():
     print(log_base)
 
     return info
+
+@app.route('/api/v1/cache/all')
+def get_cache_all():
+    return cache.all()
 
 if __name__ == '__main__':
     serve(app, host=config.APP_HOST, port=config.APP_PORT)

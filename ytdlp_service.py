@@ -1,15 +1,23 @@
 import yt_dlp
 
+import cache
+
 class YtdlpService:
     def __init__(self):
         self.ydl = yt_dlp.YoutubeDL()
+        self.cache = cache.Cache('ytdlp:')
 
     # 入力されたURLの動画タイトルを取得する
     def get_info(self, url):
-        info = self.ydl.extract_info(url, download=False)
+        info = self.cache.get(url)
+        if info is None:
+            info = self.ydl.extract_info(url, download=False)
+            self.cache.set(url, info)
+
         return {
             'title': info.get('title', None),
             'description': info.get('description', None),
+            'original_url': info.get('original_url', None),
             'channel': info.get('channel', None),
             'channel_url': info.get('channel_url', None),
             'duration': info.get('duration', None),
