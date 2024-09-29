@@ -22,6 +22,8 @@ class YtdlpService:
             'channel': info.get('channel', None),
             'channel_url': info.get('channel_url', None),
             'duration': info.get('duration', None),
+            'album': info.get('album', None),
+            'artist': info.get('artist', None),
             'thumbnail': info.get('thumbnail', None),
         }
 
