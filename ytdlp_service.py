@@ -15,6 +15,7 @@ class YtdlpService:
             self.cache.set(url, info)
 
         return {
+            'id': info.get('id', None),
             'title': info.get('title', None),
             'description': info.get('description', None),
             'original_url': info.get('original_url', None),
